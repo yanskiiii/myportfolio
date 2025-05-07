@@ -105,7 +105,7 @@ function isValidEmail(email) {
 
 // Add animation on scroll
 const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.skill-card, .project-card');
+    const elements = document.querySelectorAll('.skill-card, .project-card, .about-section, .about-image, .about-text, .about-badges');
     
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
@@ -121,10 +121,18 @@ const animateOnScroll = () => {
 // Add initial styles for animation
 const animationStyle = document.createElement('style');
 animationStyle.textContent = `
-    .skill-card, .project-card {
+    .skill-card, .project-card, .about-section, .about-image, .about-text, .about-badges {
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .about-image {
+        transform: translateX(-30px);
+    }
+    
+    .about-text {
+        transform: translateX(30px);
     }
 `;
 document.head.appendChild(animationStyle);

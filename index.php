@@ -57,6 +57,7 @@
                     <p class="about-intro">
                     I am a recent graduate from <strong>La Consolacion University Philippines</strong> with a Bachelor of Science in Information Technology. I am passionate about technology and eager to start my career in IT, where I can apply my academic knowledge and contribute to a dynamic team.
                 </p>
+                    <a href="about.php" class="cta-button" style="margin-bottom: 1.5rem; display: inline-block;">See Full Information</a>
                     <div class="about-details">
                         <div class="about-section">
                             <h4><i class="fas fa-user-graduate"></i> Education</h4>
