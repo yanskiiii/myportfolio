@@ -76,23 +76,25 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        const name = this.querySelector('input[name="name"]').value;
-        const email = this.querySelector('input[name="email"]').value;
-        const message = this.querySelector('textarea[name="message"]').value;
-        
-        if (!name || !email || !message) {
-            alert('Please fill in all fields');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('Please enter a valid email address');
-            return;
-        }
-        
-        // If validation passes, submit the form
-        this.submit();
+
+        const formData = new FormData(this);
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.status === 'success') {
+                showContactSuccess(response.message);
+                contactForm.reset(); // Optionally reset the form
+            } else {
+                alert(response.message || 'There was an error. Please try again.');
+            }
+        })
+        .catch(() => {
+            alert('There was an error sending your message. Please try again.');
+        });
     });
 }
 
@@ -210,4 +212,66 @@ document.addEventListener('DOMContentLoaded', function() {
             projectsTrack.style.animation = 'slideProjects 30s linear infinite';
         }, 250);
     });
-}); 
+});
+
+// Training Vertical Slider
+
+document.addEventListener('DOMContentLoaded', function() {
+    const trainingTrack = document.querySelector('.training-track');
+    const trainingItems = document.querySelectorAll('.training-item');
+    if (!trainingTrack || !trainingItems.length) return;
+
+    // Clone items for infinite effect
+    const clonedItems = Array.from(trainingItems).map(item => item.cloneNode(true));
+    clonedItems.forEach(item => trainingTrack.appendChild(item));
+
+    // Pause animation on hover
+    trainingTrack.addEventListener('mouseenter', () => {
+        trainingTrack.style.animationPlayState = 'paused';
+    });
+    trainingTrack.addEventListener('mouseleave', () => {
+        trainingTrack.style.animationPlayState = 'running';
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            trainingTrack.style.animation = 'none';
+            trainingTrack.offsetHeight; // Trigger reflow
+            trainingTrack.style.animation = 'slideTraining 18s linear infinite';
+        }, 250);
+    });
+});
+
+// Contact Form Success Toast
+function showContactSuccess(message) {
+    let toast = document.getElementById('contact-success-toast');
+    let msgSpan = document.getElementById('contact-success-message');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'contact-success-toast';
+        toast.className = 'contact-toast';
+        toast.innerHTML = `
+            <div class="contact-toast-content">
+                <i class="fas fa-check-circle"></i>
+                <span id="contact-success-message"></span>
+                <button onclick="this.parentElement.parentElement.style.display='none'">&times;</button>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        msgSpan = document.getElementById('contact-success-message');
+    }
+    msgSpan.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 5000);
+}
+
+// Update your AJAX contact form handler to use showContactSuccess
+// Example (assuming you use fetch or XMLHttpRequest):
+// if (response.status === 'success') {
+//     showContactSuccess(response.message);
+// } 

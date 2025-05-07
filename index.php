@@ -121,26 +121,28 @@
     <section id="training" class="training">
         <div class="container">
             <h2>Webinars & Training</h2>
-            <div class="training-timeline">
-                <div class="training-item">
-                    <div class="training-date">Dec 5, 2024</div>
-                    <div class="training-content">
-                        <h3>iThink Code Camp: Building DApps on #ICP</h3>
-                        <p>Advanced training in decentralized application development on the Internet Computer Protocol.</p>
+            <div class="training-slider">
+                <div class="training-track">
+                    <div class="training-item">
+                        <div class="training-date">Dec 5, 2024</div>
+                        <div class="training-content">
+                            <h3>iThink Code Camp: Building DApps on #ICP</h3>
+                            <p>Advanced training in decentralized application development on the Internet Computer Protocol.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="training-item">
-                    <div class="training-date">Apr 13, 2024</div>
-                    <div class="training-content">
-                        <h3>CODING FOR IMPACT: Leveraging Technology to Solve Real-World Challenges</h3>
-                        <p>Workshop focused on using technology to address real-world problems and create meaningful solutions.</p>
+                    <div class="training-item">
+                        <div class="training-date">Apr 13, 2024</div>
+                        <div class="training-content">
+                            <h3>CODING FOR IMPACT: Leveraging Technology to Solve Real-World Challenges</h3>
+                            <p>Workshop focused on using technology to address real-world problems and create meaningful solutions.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="training-item">
-                    <div class="training-date">Oct 12, 2023</div>
-                    <div class="training-content">
-                        <h3>IT Trends: Navigating the Ever-Changing Digital Landscape</h3>
-                        <p>Comprehensive overview of current and emerging trends in information technology.</p>
+                    <div class="training-item">
+                        <div class="training-date">Oct 12, 2023</div>
+                        <div class="training-content">
+                            <h3>IT Trends: Navigating the Ever-Changing Digital Landscape</h3>
+                            <p>Comprehensive overview of current and emerging trends in information technology.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -295,7 +297,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <div>
                                     <h4>Address</h4>
-                                    <p>Blk 9 Lot 37 Lexber Homes Subd.,<br>Pio Cruzcosa, Calumpit, Bulacan 3003</p>
+                                    <p>Calumpit, Bulacan</p>
                                 </div>
                             </li>
                             <li>

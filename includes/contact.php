@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php'; // Adjust path if needed
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -11,34 +16,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Set up email
-    $to = "your-email@example.com"; // Replace with your email
-    $subject = "New Contact Form Submission";
-    $headers = "From: $email\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $mail = new PHPMailer(true);
 
-    // Email body
-    $email_body = "
-    <html>
-    <head>
-        <title>New Contact Form Submission</title>
-    </head>
-    <body>
-        <h2>Contact Form Submission</h2>
-        <p><strong>Name:</strong> $name</p>
-        <p><strong>Email:</strong> $email</p>
-        <p><strong>Message:</strong></p>
-        <p>" . nl2br($message) . "</p>
-    </body>
-    </html>
-    ";
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'yayangallego10@gmail.com'; // your Gmail address
+        $mail->Password   = 'zhoo esxs uunw oflj';    // your app password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
 
-    // Send email
-    if (mail($to, $subject, $email_body, $headers)) {
+        //Recipients
+        $mail->setFrom('yayangallego10@gmail.com', 'Portfolio Contact'); // Always your Gmail
+        $mail->addAddress('yayangallego10@gmail.com'); // Your receiving email
+        $mail->addReplyTo($email, $name); // User's email as Reply-To
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'New Contact Form Submission';
+        $mail->Body    = "
+            <h2>Contact Form Submission</h2>
+            <p><strong>Name:</strong> $name</p>
+            <p><strong>Email:</strong> $email</p>
+            <p><strong>Message:</strong></p>
+            <p>" . nl2br($message) . "</p>
+        ";
+
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+
+        $mail->send();
         echo json_encode(['status' => 'success', 'message' => 'Thank you for your message. We will get back to you soon!']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Sorry, there was an error sending your message. Please try again later.']);
+    } catch (Exception $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Mailer Error: ' . $mail->ErrorInfo]);
     }
 } else {
     // Not a POST request
